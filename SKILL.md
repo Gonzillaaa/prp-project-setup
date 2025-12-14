@@ -1,6 +1,6 @@
 ---
 name: prp-project-setup
-description: Interactive questionnaire that guides users through setting up a complete PRP (Product Requirement Prompt) project structure. Walks through project basics, tech stack, code standards, and feature requirements conversationally. Uses web search to help users who don't know answers (e.g., "best testing framework for FastAPI"). Generates all necessary files (CLAUDE.md, INITIAL.md, slash commands, templates) at the end. Use when someone wants to start a new project with the PRP framework or add PRP to an existing codebase.
+description: Interactive skill for PRP (Product Requirement Prompt) projects. Two modes - (1) Full Setup for new projects with 10-phase questionnaire generating all files (CLAUDE.md, INITIAL.md, commands, templates), or (2) Add Feature mode with 6 questions to create new INITIAL.md files for existing PRP projects. Uses web search when users need help choosing frameworks or finding documentation. Supports iterative development workflow.
 ---
 
 # PRP Project Setup Skill
@@ -9,6 +9,74 @@ description: Interactive questionnaire that guides users through setting up a co
 
 This skill guides users through an interactive questionnaire to set up a complete PRP (Product Requirement Prompt) project. It collects information conversationally, uses web search to help with unknowns, and generates all necessary files for context engineering with AI coding assistants.
 
+## Official PRP Repositories
+
+**IMPORTANT**: Always reference these repositories for examples, templates, and patterns:
+
+### Primary Repository - Context Engineering Intro
+```
+https://github.com/coleam00/Context-Engineering-Intro
+```
+
+This is the main template repository containing:
+- Base PRP templates and commands
+- MCP Server use case (`use-cases/mcp-server/`)
+- Pydantic AI use case (`use-cases/pydantic-ai/`)
+- Template generator for new use cases (`use-cases/template-generator/`)
+- Complete examples and documentation
+
+**Key files to reference:**
+- `CLAUDE.md` - Example global rules file
+- `INITIAL.md` / `INITIAL_EXAMPLE.md` - Feature request examples
+- `.claude/commands/generate-prp.md` - PRP generation command
+- `.claude/commands/execute-prp.md` - PRP execution command
+- `PRPs/templates/prp_base.md` - Base PRP template
+- `PRPs/EXAMPLE_multi_agent_prp.md` - Complete PRP example
+
+### Secondary Repository - PRPs Agentic Engineering
+```
+https://github.com/Wirasm/PRPs-agentic-eng
+```
+
+Created by Raasmus, the original PRP framework creator. Contains:
+- Advanced PRP commands and templates
+- Additional slash commands for code review, refactoring, debugging
+- Detailed documentation on PRP methodology
+
+**Key resources:**
+- Extended command library (12+ commands)
+- AI docs patterns for library documentation
+- Advanced PRP templates (spec, planning, task)
+
+### Use Case Templates
+
+When users are building specific types of projects, reference these specialized templates:
+
+**MCP Servers:**
+```
+https://github.com/coleam00/Context-Engineering-Intro/tree/main/use-cases/mcp-server
+```
+- Complete MCP server template with GitHub OAuth
+- Cloudflare Workers deployment
+- Database integration patterns
+
+**Pydantic AI Agents:**
+```
+https://github.com/coleam00/Context-Engineering-Intro/tree/main/use-cases/pydantic-ai
+```
+- AI agent development patterns
+- Tool integration examples
+- Testing with TestModel/FunctionModel
+
+### When to Reference Repositories
+
+1. **User asks for examples**: Point them to specific files in the repos
+2. **User wants to see a complete PRP**: Reference `PRPs/EXAMPLE_multi_agent_prp.md`
+3. **User building MCP server**: Suggest cloning the mcp-server use case
+4. **User building AI agent**: Suggest cloning the pydantic-ai use case
+5. **User wants more commands**: Reference Wirasm/PRPs-agentic-eng for extended commands
+6. **Generating files**: Use the repo files as authoritative templates
+
 ## When to Use This Skill
 
 Use this skill when:
@@ -16,6 +84,112 @@ Use this skill when:
 - User wants to add PRP workflow to an existing codebase
 - User says things like "help me set up PRP", "create a PRP project", "I want to use context engineering"
 - User asks about setting up CLAUDE.md, INITIAL.md, or PRP templates
+
+## Template Selection Logic
+
+**IMPORTANT**: Before going through the full questionnaire, check if a specialized template would be better:
+
+### Suggest Cloning MCP Server Template When:
+- User mentions "MCP server", "Model Context Protocol", or "AI tools"
+- User mentions "Cloudflare Workers" + "OAuth"
+- User wants to build tools for Claude or other AI assistants
+
+**Response:**
+```
+For building an MCP server, there's a complete specialized template available:
+
+git clone https://github.com/coleam00/Context-Engineering-Intro.git
+cd Context-Engineering-Intro/use-cases/mcp-server
+python copy_template.py /path/to/your-project
+
+This includes GitHub OAuth, database integration, and Cloudflare deployment 
+already configured. Would you like to use this template, or set up from scratch?
+```
+
+### Suggest Cloning Pydantic AI Template When:
+- User mentions "Pydantic AI", "AI agent", or "agent with tools"
+- User wants LLM-powered features with structured outputs
+- User mentions building agents similar to research/email agents
+
+**Response:**
+```
+For building AI agents with Pydantic AI, there's a specialized template:
+
+git clone https://github.com/coleam00/Context-Engineering-Intro.git
+cd Context-Engineering-Intro/use-cases/pydantic-ai
+python copy_template.py /path/to/your-project
+
+This includes agent patterns, tool integration, and testing examples.
+Would you like to use this template, or set up from scratch?
+```
+
+### Use Full Questionnaire When:
+- User's project doesn't match existing templates
+- User explicitly wants a custom setup
+- User is adding PRP to existing codebase
+- User wants to learn by going through the process
+
+---
+
+## Two Modes: Setup vs. Add Feature
+
+This skill operates in **two modes** depending on what the user needs:
+
+### Mode 1: Project Setup (Full Questionnaire)
+**Triggers:**
+- "Help me set up a PRP project"
+- "Create a new project with context engineering"
+- "Set up PRP for my codebase"
+- User has no existing CLAUDE.md or PRP structure
+
+**What it does:** Full 10-phase questionnaire → Generates all project files
+
+### Mode 2: Add New Feature (Light Questionnaire)
+**Triggers:**
+- "I want to add a new feature"
+- "Help me create an INITIAL.md for a new feature"
+- "I need to build [feature] in my project"
+- User already has PRP set up (has CLAUDE.md, PRPs/ folder)
+
+**What it does:** 6-question feature questionnaire → Generates new INITIAL.md
+
+### How to Detect Which Mode
+
+Ask the user:
+```
+Do you need to:
+A) Set up a new PRP project from scratch
+B) Add a new feature to an existing PRP project
+
+(If you already have CLAUDE.md and a PRPs/ folder, choose B)
+```
+
+Or detect automatically if user mentions they already have PRP set up.
+
+## Fetching Resources from Repositories
+
+When you need to show users specific examples or verify patterns, fetch from GitHub:
+
+### Fetch Commands
+```python
+# Show example INITIAL.md
+web_fetch("https://raw.githubusercontent.com/coleam00/Context-Engineering-Intro/main/INITIAL_EXAMPLE.md")
+
+# Show complete PRP example
+web_fetch("https://raw.githubusercontent.com/coleam00/Context-Engineering-Intro/main/PRPs/EXAMPLE_multi_agent_prp.md")
+
+# Show CLAUDE.md example
+web_fetch("https://raw.githubusercontent.com/coleam00/Context-Engineering-Intro/main/CLAUDE.md")
+
+# Show base PRP template
+web_fetch("https://raw.githubusercontent.com/coleam00/Context-Engineering-Intro/main/PRPs/templates/prp_base.md")
+```
+
+### When to Fetch
+- User asks "show me an example"
+- User wants to see what a complete file looks like
+- You need to verify the exact format/structure
+- User is confused about a section
 
 ## Core Workflow
 
@@ -107,7 +281,7 @@ What database will you use?
 - MySQL
 - SQLite
 - MongoDB
-- Supabase or Neon
+- Supabase
 - None / Not sure yet
 ```
 
@@ -118,6 +292,7 @@ Are you building anything with AI/ML? If so, what libraries?
 - LangChain
 - OpenAI SDK
 - Anthropic SDK
+- CrewAI
 - None
 ```
 
@@ -135,9 +310,9 @@ What package manager do you use?
 ```
 Where will this be deployed?
 - Docker
+- Cloudflare Workers
 - Vercel
 - AWS Lambda
-- Cloudflare Workers
 - Railway
 - Local only (for now)
 - Not sure yet
@@ -471,9 +646,241 @@ Example:
 
 ---
 
-## File Generation Phase
+# Mode 2: Add New Feature Flow
 
-After collecting all information, generate the complete project structure.
+This is a **lighter questionnaire** for users who already have PRP set up and want to add a new feature to their project.
+
+## When to Use Add Feature Mode
+
+**Triggers:**
+- "I want to add a new feature"
+- "Help me create an INITIAL.md for a new feature"
+- "I need to build [feature] in my project"
+- "Create a feature request for [feature]"
+- User mentions they already have CLAUDE.md / PRP set up
+
+## Add Feature: Introduction
+
+```markdown
+I'll help you create an INITIAL.md for your new feature. Since you already 
+have PRP set up, I just need to understand the feature itself.
+
+After we're done, you'll:
+1. Run `/generate-prp INITIAL.md` to create the PRP
+2. Review the generated PRP
+3. Run `/execute-prp PRPs/[feature-name].md` to implement
+
+Let's define your feature!
+```
+
+## Add Feature: Questions (6 Total)
+
+### Feature Q1: What to Build
+```
+What feature do you want to build?
+
+Describe it in detail:
+- What does it do?
+- Who uses it?
+- What's the end result?
+
+Be specific! The more detail, the better the PRP will be.
+```
+
+### Feature Q2: Components
+```
+Let's break this into components.
+
+For each component, tell me:
+- Name
+- What it does  
+- Inputs/outputs
+
+Example:
+- "NotificationService" - sends emails via SendGrid, takes user + message, returns delivery status
+- "PreferencesManager" - stores user notification settings, takes user_id, returns preferences
+
+(If it's simple, one component is fine!)
+```
+
+### Feature Q3: External Dependencies
+```
+Does this feature need any external APIs, services, or new libraries?
+
+For each one:
+- Service/library name
+- What you'll use it for
+- Documentation URL (or say "find it for me")
+
+If none, just say "none".
+```
+
+**Web Research Trigger:** If user says "find it for me" or "I don't know the URL", search for:
+- "[service/library] official documentation"
+- "[service/library] API reference Python/TypeScript"
+
+### Feature Q4: Existing Patterns to Follow
+```
+Are there existing files in your codebase this feature should follow?
+
+Examples:
+- "src/services/email_service.py - follow this service pattern"
+- "src/models/user.py - follow this model structure"  
+- "tests/test_auth.py - follow this test pattern"
+
+If none, say "none" and the PRP will use general best practices.
+```
+
+### Feature Q5: Gotchas & Considerations
+```
+Any specific things to watch out for?
+
+- Known limitations or constraints?
+- Security requirements?
+- Performance requirements?
+- Must integrate with existing feature X?
+- Common mistakes to avoid?
+
+If unsure, I can research common gotchas for the libraries you mentioned.
+```
+
+**Web Research Trigger:** If user is unsure, search for:
+- "[library] common mistakes"
+- "[library] gotchas pitfalls"
+- "[library] best practices"
+
+### Feature Q6: Success Criteria
+```
+How will you know this feature is done?
+
+List specific, testable criteria:
+- "User receives email within 30 seconds of trigger"
+- "Preferences persist across sessions"  
+- "Rate limited to 100 requests/hour per user"
+- "Returns 400 error for invalid input"
+```
+
+## Add Feature: Output Options
+
+After gathering information, ask:
+
+```
+Where should I save this feature request?
+
+A) Overwrite INITIAL.md (standard - you work on one feature at a time)
+B) Create PRPs/INITIAL_[feature-name].md (queue multiple features)
+C) Just show me the content (you'll copy/paste it yourself)
+```
+
+**Option A** - Default for most users
+**Option B** - For users planning multiple features
+**Option C** - For users who want to review/modify before saving
+
+## Add Feature: Generated Output
+
+Generate this INITIAL.md structure:
+
+```markdown
+## FEATURE:
+
+[Detailed description from Q1]
+
+### Components
+
+**[Component 1 Name]**
+- Purpose: [from Q2]
+- Inputs: [from Q2]
+- Outputs: [from Q2]
+
+**[Component 2 Name]** (if applicable)
+- Purpose: [from Q2]
+- Inputs: [from Q2]
+- Outputs: [from Q2]
+
+## EXAMPLES:
+
+[If user provided patterns in Q4:]
+The following files demonstrate patterns to follow:
+
+- `[path]` - [what pattern to follow]
+- `[path]` - [what pattern to follow]
+
+[If no patterns provided:]
+No existing patterns specified. Follow the conventions in CLAUDE.md and use 
+best practices for [their framework].
+
+## DOCUMENTATION:
+
+[URLs from Q3, including any researched documentation]
+
+- [URL] - [what it's for]
+- [URL] - [what it's for]
+
+## OTHER CONSIDERATIONS:
+
+### Requirements & Constraints
+[From Q5 - gotchas, security, performance, integrations]
+
+### Success Criteria
+[From Q6 - specific testable criteria]
+
+- [ ] [Criterion 1]
+- [ ] [Criterion 2]
+- [ ] [Criterion 3]
+
+---
+*Generated by PRP Setup Skill*
+*Next: Run `/generate-prp INITIAL.md` to create the full PRP*
+```
+
+## Add Feature: Next Steps Message
+
+After generating:
+
+```markdown
+✅ Feature request saved to [INITIAL.md or PRPs/INITIAL_feature-name.md]
+
+**Next steps:**
+1. Review the file and add any details I missed
+2. Run: `/generate-prp INITIAL.md`
+3. Review the generated PRP in PRPs/[feature-name].md
+4. Run: `/execute-prp PRPs/[feature-name].md`
+
+**Tips:**
+- Add example files to examples/ if you create good patterns
+- Update CLAUDE.md with any gotchas you discover
+- Move completed PRPs to PRPs/completed/
+
+Want to add another feature, or do you have questions?
+```
+
+## Add Feature: Handling Multiple Features
+
+If user wants to queue multiple features:
+
+```markdown
+You can create multiple INITIAL files:
+
+PRPs/
+├── INITIAL_notifications.md    ← Feature 1
+├── INITIAL_bulk-upload.md      ← Feature 2  
+├── INITIAL_reporting.md        ← Feature 3
+└── templates/
+    └── prp_base.md
+
+Then generate PRPs one at a time:
+/generate-prp PRPs/INITIAL_notifications.md
+/generate-prp PRPs/INITIAL_bulk-upload.md
+...
+
+This lets you plan ahead while implementing one feature at a time.
+```
+
+---
+
+## File Generation Phase (Mode 1 Only)
+
+After collecting all information in the full setup questionnaire, generate the complete project structure.
 
 ### Files to Generate
 

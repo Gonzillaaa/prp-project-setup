@@ -2,7 +2,18 @@
 
 Quick lookup for all questions and their mapping to generated files.
 
-## Question Summary by Phase
+## Two Modes
+
+This skill operates in two modes:
+
+| Mode | Trigger | Questions | Output |
+|------|---------|-----------|--------|
+| **Setup** | "Set up PRP project" | 10 phases, ~30 questions | All project files |
+| **Add Feature** | "Add a new feature" | 6 questions | INITIAL.md only |
+
+---
+
+## Mode 1: Setup - Question Summary by Phase
 
 ### Phase 1: Project Foundation
 | # | Question | Maps To |
@@ -218,3 +229,75 @@ testing: Vitest + Playwright
 linting: ESLint + Prettier
 package_manager: npm or pnpm
 ```
+
+---
+
+## Mode 2: Add Feature - Question Reference
+
+A lighter questionnaire for adding features to existing PRP projects.
+
+### Questions Overview
+
+| # | Question | Maps To |
+|---|----------|---------|
+| F1 | What feature to build | INITIAL.md FEATURE section |
+| F2 | Component breakdown | INITIAL.md Components |
+| F3 | External APIs/libraries | INITIAL.md DOCUMENTATION |
+| F4 | Existing patterns to follow | INITIAL.md EXAMPLES |
+| F5 | Gotchas & considerations | INITIAL.md OTHER CONSIDERATIONS |
+| F6 | Success criteria | INITIAL.md Success Criteria |
+
+### Question Details
+
+**F1: What to Build**
+```
+What feature do you want to build?
+- What does it do?
+- Who uses it?
+- What's the end result?
+```
+
+**F2: Components**
+```
+Break this into components:
+- Name, purpose, inputs/outputs for each
+```
+
+**F3: External Dependencies**
+```
+External APIs, services, or new libraries needed?
+- Name, purpose, documentation URL
+```
+
+**F4: Existing Patterns**
+```
+Files in your codebase this should follow?
+- Path and what pattern to follow
+```
+
+**F5: Gotchas**
+```
+Things to watch out for?
+- Constraints, security, performance, integrations
+```
+
+**F6: Success Criteria**
+```
+How will you know it's done?
+- Specific, testable criteria
+```
+
+### Output Options
+
+After questions, user chooses:
+- **A) Overwrite INITIAL.md** - Standard approach
+- **B) Create PRPs/INITIAL_[name].md** - Queue multiple features
+- **C) Show content only** - User saves manually
+
+### Web Research Triggers (Mode 2)
+
+| User Says | Search For |
+|-----------|------------|
+| "Find docs for [library]" | "[library] official documentation" |
+| "Not sure about gotchas" | "[library] common mistakes pitfalls" |
+| "What's the best way to..." | "[topic] best practices [framework]" |
