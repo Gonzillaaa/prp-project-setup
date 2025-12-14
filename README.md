@@ -74,6 +74,7 @@ prp-project-setup-skill/
 └── references/
     ├── questionnaire-reference.md        # Quick lookup for all questions
     ├── file-templates.md                 # Templates for generated files
+    ├── mode-2-add-feature.md             # Add Feature flow (Mode 2)
     ├── repository-resources.md           # Guide to official PRP repositories
     └── web-research-patterns.md          # When and how to use web search
 ```
@@ -85,6 +86,7 @@ prp-project-setup-skill/
 | `SKILL.md` | Core skill definition with questionnaire flow, template selection logic, and file generation instructions |
 | `questionnaire-reference.md` | Quick reference mapping questions to generated file sections |
 | `file-templates.md` | Mustache-style templates for CLAUDE.md, INITIAL.md, and all generated files |
+| `mode-2-add-feature.md` | Lightweight 6-question flow for adding features to existing PRP projects |
 | `repository-resources.md` | Detailed guide to fetching examples from official PRP repositories |
 | `web-research-patterns.md` | Patterns for when and how to search for framework recommendations |
 
@@ -98,6 +100,21 @@ prp-project-setup-skill/
 2. Go to **Project Knowledge** → **Add Content**
 3. Upload `SKILL.md` and all files from the `references/` folder
 4. Start a conversation with: *"Help me set up a PRP project"*
+
+### For Claude Code CLI
+
+1. Create the skills directory:
+   ```bash
+   mkdir -p ~/.claude/skills/prp-project-setup/references
+   ```
+
+2. Copy files:
+   ```bash
+   cp SKILL.md ~/.claude/skills/prp-project-setup/
+   cp references/* ~/.claude/skills/prp-project-setup/references/
+   ```
+
+3. The skill will now appear when you run Claude Code
 
 ### For Claude Desktop / API
 

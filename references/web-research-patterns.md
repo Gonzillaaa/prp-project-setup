@@ -32,25 +32,25 @@ When user says any of these, initiate web research:
 
 **Python Web Framework:**
 ```
-Query: "best Python web framework 2024 FastAPI Flask Django comparison"
+Query: "best Python web framework FastAPI Flask Django comparison"
 Follow-up: "[framework] getting started production ready"
 ```
 
 **TypeScript Backend:**
 ```
-Query: "best TypeScript backend framework 2024 Express NestJS Hono"
+Query: "best TypeScript backend framework Express NestJS Hono"
 Follow-up: "[framework] production setup best practices"
 ```
 
 **Database Selection:**
 ```
-Query: "best database for [use case] [language] 2024"
+Query: "best database for [use case] [language]"
 Follow-up: "[database] with [framework] integration guide"
 ```
 
 **AI/ML Framework:**
 ```
-Query: "best AI agent framework Python 2024 LangChain Pydantic AI"
+Query: "best AI agent framework Python LangChain Pydantic AI"
 Follow-up: "[framework] vs [framework] comparison production"
 ```
 
@@ -64,7 +64,7 @@ Expected answer: pytest (99% of cases)
 
 **TypeScript:**
 ```
-Query: "best TypeScript testing framework 2024 Jest Vitest"
+Query: "best TypeScript testing framework Jest Vitest"
 Follow-up: "[framework] with [runtime] setup"
 ```
 
@@ -72,13 +72,13 @@ Follow-up: "[framework] with [runtime] setup"
 
 **Python:**
 ```
-Query: "best Python linter 2024 ruff black flake8"
+Query: "best Python linter ruff black flake8"
 Expected answer: ruff (fast, comprehensive)
 ```
 
 **TypeScript:**
 ```
-Query: "ESLint vs Biome 2024 TypeScript"
+Query: "ESLint vs Biome TypeScript"
 Follow-up: "Prettier ESLint configuration [framework]"
 ```
 
@@ -111,7 +111,7 @@ Query: "[framework] gotchas developers"
 
 **Best Practices:**
 ```
-Query: "[framework] best practices production 2024"
+Query: "[framework] best practices production"
 Query: "[framework] project structure recommended"
 ```
 
@@ -200,7 +200,7 @@ common_gotchas:
 ### Python + Pydantic AI
 ```yaml
 always_research:
-  - "Pydantic AI agent patterns 2024"
+  - "Pydantic AI agent patterns"
   - "Pydantic AI tools integration"
   - "Pydantic AI testing TestModel"
 
@@ -213,7 +213,7 @@ common_gotchas:
 ### TypeScript + Next.js
 ```yaml
 always_research:
-  - "Next.js App Router best practices 2024"
+  - "Next.js App Router best practices"
   - "Next.js server components patterns"
   - "Next.js data fetching strategies"
 
@@ -280,7 +280,7 @@ What kind of data will you be storing?
 ```
 User: "Relational - users, teams, and tasks"
 
-Search: "best relational database Python FastAPI 2024"
+Search: "best relational database Python FastAPI"
 Search: "PostgreSQL vs MySQL Python async"
 ```
 

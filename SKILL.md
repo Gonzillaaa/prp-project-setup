@@ -1,6 +1,6 @@
 ---
 name: prp-project-setup
-description: Interactive skill for PRP (Product Requirement Prompt) projects. Two modes - (1) Full Setup for new projects with 10-phase questionnaire generating all files (CLAUDE.md, INITIAL.md, commands, templates), or (2) Add Feature mode with 6 questions to create new INITIAL.md files for existing PRP projects. Uses web search when users need help choosing frameworks or finding documentation. Supports iterative development workflow.
+description: Interactive PRP project setup with questionnaire and file generation
 ---
 
 # PRP Project Setup Skill
@@ -193,7 +193,7 @@ web_fetch("https://raw.githubusercontent.com/coleam00/Context-Engineering-Intro/
 
 ## Core Workflow
 
-### Phase 1: Introduction & Project Type
+### Phase 1: Introduction & Project Type (1/10)
 
 Start by explaining what we're doing and asking the first critical question:
 
@@ -229,7 +229,7 @@ Is this a new project or adding PRP to an existing codebase?
 
 ---
 
-### Phase 2: Tech Stack Discovery
+### Phase 2: Tech Stack Discovery (2/10)
 
 This section determines the technology stack. **Use web search** when the user says "I don't know" or asks for recommendations.
 
@@ -331,7 +331,7 @@ Summarize findings and make a recommendation based on their project description.
 
 ---
 
-### Phase 3: Code Standards
+### Phase 3: Code Standards (3/10)
 
 **Question 3.1**: File length limit
 ```
@@ -384,7 +384,7 @@ What docstring format do you prefer?
 
 ---
 
-### Phase 4: Testing Requirements
+### Phase 4: Testing Requirements (4/10)
 
 **Question 4.1**: Testing framework
 ```
@@ -423,7 +423,7 @@ For each new feature, what test cases should be required?
 
 ---
 
-### Phase 5: Development Workflow
+### Phase 5: Development Workflow (5/10)
 
 **Question 5.1**: Development server command
 ```
@@ -467,7 +467,7 @@ Do you use a virtual environment?
 
 ---
 
-### Phase 6: The Feature (INITIAL.md Content)
+### Phase 6: The Feature (6/10)
 
 This is the most important section. Be thorough.
 
@@ -517,7 +517,7 @@ If user doesn't know the documentation URL, search:
 
 ---
 
-### Phase 7: Examples & Patterns
+### Phase 7: Examples & Patterns (7/10)
 
 **Question 7.1**: Existing examples
 ```
@@ -550,7 +550,7 @@ Example:
 
 ---
 
-### Phase 8: Documentation
+### Phase 8: Documentation (8/10)
 
 **Question 8.1**: Documentation URLs
 ```
@@ -570,7 +570,7 @@ Compile a list of specific, useful documentation URLs with section anchors where
 
 ---
 
-### Phase 9: Gotchas & Considerations
+### Phase 9: Gotchas & Considerations (9/10)
 
 **Question 9.1**: AI mistakes
 ```
@@ -623,7 +623,7 @@ What additional files should be created alongside the feature?
 
 ---
 
-### Phase 10: Success Criteria
+### Phase 10: Success Criteria (10/10)
 
 **Question 10.1**: Definition of done
 ```
@@ -648,233 +648,9 @@ Example:
 
 # Mode 2: Add New Feature Flow
 
-This is a **lighter questionnaire** for users who already have PRP set up and want to add a new feature to their project.
+For users who already have PRP set up and want to add a new feature to their project, see the detailed flow in `references/mode-2-add-feature.md`.
 
-## When to Use Add Feature Mode
-
-**Triggers:**
-- "I want to add a new feature"
-- "Help me create an INITIAL.md for a new feature"
-- "I need to build [feature] in my project"
-- "Create a feature request for [feature]"
-- User mentions they already have CLAUDE.md / PRP set up
-
-## Add Feature: Introduction
-
-```markdown
-I'll help you create an INITIAL.md for your new feature. Since you already 
-have PRP set up, I just need to understand the feature itself.
-
-After we're done, you'll:
-1. Run `/generate-prp INITIAL.md` to create the PRP
-2. Review the generated PRP
-3. Run `/execute-prp PRPs/[feature-name].md` to implement
-
-Let's define your feature!
-```
-
-## Add Feature: Questions (6 Total)
-
-### Feature Q1: What to Build
-```
-What feature do you want to build?
-
-Describe it in detail:
-- What does it do?
-- Who uses it?
-- What's the end result?
-
-Be specific! The more detail, the better the PRP will be.
-```
-
-### Feature Q2: Components
-```
-Let's break this into components.
-
-For each component, tell me:
-- Name
-- What it does  
-- Inputs/outputs
-
-Example:
-- "NotificationService" - sends emails via SendGrid, takes user + message, returns delivery status
-- "PreferencesManager" - stores user notification settings, takes user_id, returns preferences
-
-(If it's simple, one component is fine!)
-```
-
-### Feature Q3: External Dependencies
-```
-Does this feature need any external APIs, services, or new libraries?
-
-For each one:
-- Service/library name
-- What you'll use it for
-- Documentation URL (or say "find it for me")
-
-If none, just say "none".
-```
-
-**Web Research Trigger:** If user says "find it for me" or "I don't know the URL", search for:
-- "[service/library] official documentation"
-- "[service/library] API reference Python/TypeScript"
-
-### Feature Q4: Existing Patterns to Follow
-```
-Are there existing files in your codebase this feature should follow?
-
-Examples:
-- "src/services/email_service.py - follow this service pattern"
-- "src/models/user.py - follow this model structure"  
-- "tests/test_auth.py - follow this test pattern"
-
-If none, say "none" and the PRP will use general best practices.
-```
-
-### Feature Q5: Gotchas & Considerations
-```
-Any specific things to watch out for?
-
-- Known limitations or constraints?
-- Security requirements?
-- Performance requirements?
-- Must integrate with existing feature X?
-- Common mistakes to avoid?
-
-If unsure, I can research common gotchas for the libraries you mentioned.
-```
-
-**Web Research Trigger:** If user is unsure, search for:
-- "[library] common mistakes"
-- "[library] gotchas pitfalls"
-- "[library] best practices"
-
-### Feature Q6: Success Criteria
-```
-How will you know this feature is done?
-
-List specific, testable criteria:
-- "User receives email within 30 seconds of trigger"
-- "Preferences persist across sessions"  
-- "Rate limited to 100 requests/hour per user"
-- "Returns 400 error for invalid input"
-```
-
-## Add Feature: Output Options
-
-After gathering information, ask:
-
-```
-Where should I save this feature request?
-
-A) Overwrite INITIAL.md (standard - you work on one feature at a time)
-B) Create PRPs/INITIAL_[feature-name].md (queue multiple features)
-C) Just show me the content (you'll copy/paste it yourself)
-```
-
-**Option A** - Default for most users
-**Option B** - For users planning multiple features
-**Option C** - For users who want to review/modify before saving
-
-## Add Feature: Generated Output
-
-Generate this INITIAL.md structure:
-
-```markdown
-## FEATURE:
-
-[Detailed description from Q1]
-
-### Components
-
-**[Component 1 Name]**
-- Purpose: [from Q2]
-- Inputs: [from Q2]
-- Outputs: [from Q2]
-
-**[Component 2 Name]** (if applicable)
-- Purpose: [from Q2]
-- Inputs: [from Q2]
-- Outputs: [from Q2]
-
-## EXAMPLES:
-
-[If user provided patterns in Q4:]
-The following files demonstrate patterns to follow:
-
-- `[path]` - [what pattern to follow]
-- `[path]` - [what pattern to follow]
-
-[If no patterns provided:]
-No existing patterns specified. Follow the conventions in CLAUDE.md and use 
-best practices for [their framework].
-
-## DOCUMENTATION:
-
-[URLs from Q3, including any researched documentation]
-
-- [URL] - [what it's for]
-- [URL] - [what it's for]
-
-## OTHER CONSIDERATIONS:
-
-### Requirements & Constraints
-[From Q5 - gotchas, security, performance, integrations]
-
-### Success Criteria
-[From Q6 - specific testable criteria]
-
-- [ ] [Criterion 1]
-- [ ] [Criterion 2]
-- [ ] [Criterion 3]
-
----
-*Generated by PRP Setup Skill*
-*Next: Run `/generate-prp INITIAL.md` to create the full PRP*
-```
-
-## Add Feature: Next Steps Message
-
-After generating:
-
-```markdown
-✅ Feature request saved to [INITIAL.md or PRPs/INITIAL_feature-name.md]
-
-**Next steps:**
-1. Review the file and add any details I missed
-2. Run: `/generate-prp INITIAL.md`
-3. Review the generated PRP in PRPs/[feature-name].md
-4. Run: `/execute-prp PRPs/[feature-name].md`
-
-**Tips:**
-- Add example files to examples/ if you create good patterns
-- Update CLAUDE.md with any gotchas you discover
-- Move completed PRPs to PRPs/completed/
-
-Want to add another feature, or do you have questions?
-```
-
-## Add Feature: Handling Multiple Features
-
-If user wants to queue multiple features:
-
-```markdown
-You can create multiple INITIAL files:
-
-PRPs/
-├── INITIAL_notifications.md    ← Feature 1
-├── INITIAL_bulk-upload.md      ← Feature 2  
-├── INITIAL_reporting.md        ← Feature 3
-└── templates/
-    └── prp_base.md
-
-Then generate PRPs one at a time:
-/generate-prp PRPs/INITIAL_notifications.md
-/generate-prp PRPs/INITIAL_bulk-upload.md
-...
-
-This lets you plan ahead while implementing one feature at a time.
-```
+This is a lighter 6-question questionnaire that generates only a new INITIAL.md file.
 
 ---
 
