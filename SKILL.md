@@ -87,41 +87,7 @@ Use this skill when:
 
 ## Template Selection Logic
 
-**IMPORTANT**: Before going through the full questionnaire, check if a specialized template would be better:
-
-### Suggest Cloning MCP Server Template When:
-- User mentions "MCP server", "Model Context Protocol", or "AI tools"
-- User mentions "Cloudflare Workers" + "OAuth"
-- User wants to build tools for Claude or other AI assistants
-
-**Response:**
-```
-For building an MCP server, there's a complete specialized template available:
-
-git clone https://github.com/coleam00/Context-Engineering-Intro.git
-cd Context-Engineering-Intro/use-cases/mcp-server
-python copy_template.py /path/to/your-project
-
-This includes GitHub OAuth, database integration, and Cloudflare deployment 
-already configured. Would you like to use this template, or set up from scratch?
-```
-
-### Suggest Cloning Pydantic AI Template When:
-- User mentions "Pydantic AI", "AI agent", or "agent with tools"
-- User wants LLM-powered features with structured outputs
-- User mentions building agents similar to research/email agents
-
-**Response:**
-```
-For building AI agents with Pydantic AI, there's a specialized template:
-
-git clone https://github.com/coleam00/Context-Engineering-Intro.git
-cd Context-Engineering-Intro/use-cases/pydantic-ai
-python copy_template.py /path/to/your-project
-
-This includes agent patterns, tool integration, and testing examples.
-Would you like to use this template, or set up from scratch?
-```
+**IMPORTANT**: Before going through the full questionnaire, check if a specialized template would be better
 
 ### Use Full Questionnaire When:
 - User's project doesn't match existing templates
