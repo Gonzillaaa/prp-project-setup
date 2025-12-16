@@ -2,8 +2,6 @@
 
 An interactive Claude skill that guides users through setting up complete **PRP (Product Requirement Prompt)** projects with AI-assisted research and file generation.
 
-> **Context Engineering is 10x better than prompt engineering and 100x better than vibe coding.**
-
 [![Claude Skill](https://img.shields.io/badge/Claude-Skill-blueviolet?style=flat-square&logo=anthropic)](https://claude.ai)
 [![PRP Framework](https://img.shields.io/badge/PRP-Framework-orange?style=flat-square)](https://github.com/Wirasm/PRPs-agentic-eng)
 [![Context Engineering](https://img.shields.io/badge/Context-Engineering-green?style=flat-square)](https://github.com/coleam00/Context-Engineering-Intro)
