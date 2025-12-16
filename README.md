@@ -1,4 +1,4 @@
-# 🚀 PRP Project Setup Skill
+# 🧰 PRP Project Setup Skill
 
 An interactive Claude skill that guides users through setting up complete **PRP (Product Requirement Prompt)** projects with AI-assisted research and file generation.
 
